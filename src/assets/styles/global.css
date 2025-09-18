@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+}
+
+html {
+  font-size: var(--global-font-size);
+  font-family: var(--font-family);
+}
+
+body {
+  min-height: 100vh;
+}
