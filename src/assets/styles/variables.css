@@ -1,35 +1,36 @@
 /*=====Variables=====*/
 :root {
-  /*===Primary-Colors===*/
-  --blue-five-hundred: hsl(220, 98%, 61%);
+  /*===Primary colors===*/
+  --blue-five-hundred: hsl(220 98% 61%);
   --check-background: linear-gradient(
     135deg,
-    hsl(192, 100%, 67%),
-    hsl(280, 87%, 65%)
+    hsl(192 100% 67%),
+    hsl(280 87% 65%)
   );
-
-  /*===Light-theme-Colors===*/
-  [data-theme="light"] {
-    --gray-fifty: hsl(0, 0%, 98%);
-    --purple-three-hundred: hsl(234, 39%, 85%);
-    --gray-three-hundred: hsl(233, 11%, 84%);
-    --gray-six-hundred: hsl(236, 9%, 61%);
-    --navy-eight-hundred-fifty: hsl(235, 19%, 35%);
-  }
-
-  /*===Dark-theme-colors===*/
-  [data-theme="dark"] {
-    --navy-nine-hundred-fifty: hsl(235, 21%, 11%);
-    --navy-nine-hundred: hsl(235, 24%, 19%);
-    --purple-three-hundred: hsl(234, 39%, 85%);
-    --purple-one-hundred-hover: hsl(236, 33%, 92%);
-    --purple-six-hundred: hsl(235, 16%, 43%);
-    --purple-seven-hundred: hsl(233, 14%, 35%);
-    --purple-eight-hundred: hsl(237, 14%, 26%);
-    --gray-six-hundred: hsl(236, 9%, 61%);
-  }
 
   /*===Typography===*/
   --font-family: "Josefin Sans", sans-serif;
   --global-font-size: 18px;
+
+  /*===Layout===*/
+  --content-width: 33.75rem;
+}
+
+:root,
+:root[data-theme="light"] {
+  --page-background: hsl(0 0% 98%);
+  --todo-surface: hsl(0 0% 100%);
+  --todo-text: hsl(235 19% 35%);
+  --todo-muted: hsl(236 9% 61%);
+  --todo-border: hsl(233 11% 84%);
+  --header-background: url("../images/backgrounds/bg-desktop-light.jpg");
+}
+
+:root[data-theme="dark"] {
+  --page-background: hsl(235 21% 11%);
+  --todo-surface: hsl(235 24% 19%);
+  --todo-text: hsl(234 39% 85%);
+  --todo-muted: hsl(236 9% 61%);
+  --todo-border: hsl(237 14% 26%);
+  --header-background: url("../images/backgrounds/bg-desktop-dark.jpg");
 }

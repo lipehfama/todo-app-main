@@ -3,5 +3,5 @@
 </template>
 
 <style scoped>
-@import "./Footer.module.css";
+@import "./style.css";
 </style>

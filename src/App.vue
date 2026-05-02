@@ -5,7 +5,6 @@ import Footer from "./components/Footer/Footer.vue";
 
 <template>
   <main>
-    <figure></figure>
     <Header />
     <section></section>
     <Footer />
