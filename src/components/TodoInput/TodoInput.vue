@@ -9,7 +9,7 @@ const title = ref("");
 
 function handleSubmit() {
   const todoTitle = title.value.trim();
-
+  //console.log(todoTitle);
   if (!todoTitle) return;
 
   emit("create", todoTitle);
