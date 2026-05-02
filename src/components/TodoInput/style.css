@@ -1,0 +1,64 @@
+.todo-input {
+  display: flex;
+  align-items: center;
+  gap: 1.35rem;
+  inline-size: 100%;
+  min-block-size: 4rem;
+  padding-block: 1rem;
+  padding-inline: 1.35rem;
+  border-radius: 0.35rem;
+  background-color: var(--todo-surface);
+  box-shadow: 0 1.75rem 3rem hsl(235 21% 11% / 0.12);
+
+  & .todo-input__submit {
+    flex: 0 0 auto;
+    inline-size: 1.35rem;
+    aspect-ratio: 1;
+    border: 0.0625rem solid var(--todo-border);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--blue-five-hundred);
+    }
+
+    &:focus-visible {
+      outline: 0.125rem solid var(--blue-five-hundred);
+      outline-offset: 0.2rem;
+    }
+  }
+
+  & .todo-input__field {
+    min-inline-size: 0;
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--todo-text);
+    font: inherit;
+    line-height: 1.4;
+    caret-color: var(--blue-five-hundred);
+
+    &::placeholder {
+      color: var(--todo-muted);
+    }
+  }
+
+  @media (width < 48rem) {
+    gap: 0.85rem;
+    min-block-size: 3rem;
+    padding-block: 0.85rem;
+    padding-inline: 1.1rem;
+    border-radius: 0.3rem;
+
+    & .todo-input__submit {
+      inline-size: 1.2rem;
+    }
+
+    & .todo-input__field {
+      font-size: 0.85rem;
+    }
+  }
+}
