@@ -8,46 +8,44 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-}
 
-.header__content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  inline-size: min(100%, var(--content-width));
-  margin-inline: auto;
-}
-
-.header__title {
-  color: hsl(0 0% 100%);
-  font-size: clamp(1.75rem, 5vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.6rem;
-  text-transform: uppercase;
-}
-
-.header__theme-button {
-  display: grid;
-  place-items: center;
-  inline-size: 2rem;
-  block-size: 2rem;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.header__theme-button img {
-  inline-size: 1.5rem;
-  block-size: 1.5rem;
-}
-
-@media (width < 48rem) {
-  .header {
-    background-image: url("../../assets/images/backgrounds/bg-mobile-light.jpg");
+  & .header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    inline-size: min(100%, var(--content-width));
+    margin-inline: auto;
   }
 
-  :global(:root[data-theme="dark"]) .header {
-    background-image: url("../../assets/images/backgrounds/bg-mobile-dark.jpg");
+  & .header__title {
+    color: hsl(0 0% 100%);
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  & .header__theme-button {
+    display: grid;
+    place-items: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    & img {
+      inline-size: 1.5rem;
+      block-size: 1.5rem;
+    }
+  }
+
+  @media (width < 48rem) {
+    background-image: url("../../assets/images/backgrounds/bg-mobile-light.jpg");
+
+    :global(:root[data-theme="dark"]) & {
+      background-image: url("../../assets/images/backgrounds/bg-mobile-dark.jpg");
+    }
   }
 }
