@@ -96,7 +96,7 @@
   & .todo-list__filter:hover,
   & .todo-list__clear:hover,
   & .todo-list__filter--active {
-    color: var(--blue-five-hundred);
+    color: var(--todo-accent);
   }
 
   & .todo-list__clear {
