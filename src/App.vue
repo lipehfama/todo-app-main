@@ -4,15 +4,14 @@ import Header from "./components/Header/Header.vue";
 import TodoInput from "./components/TodoInput/TodoInput.vue";
 import TodoList from "./components/TodoList/TodoList.vue";
 import Footer from "./components/Footer/Footer.vue";
+import { useTheme } from "./composables/useTheme";
 import type { Todo } from "./types/todo";
 
-type Theme = "light" | "dark";
 type TodoFilter = "all" | "active" | "completed";
 
-const THEME_STORAGE_KEY = "todo-theme";
 const TODOS_STORAGE_KEY = "todo-items";
 
-const theme = ref<Theme>("light");
+const { theme, toggleTheme } = useTheme();
 const todoFilter = ref<TodoFilter>("all");
 const todos = ref<Todo[]>([]);
 
@@ -31,14 +30,6 @@ const filteredTodos = computed(() => {
 const activeTodoCount = computed(() => {
   return todos.value.filter((todo) => !todo.completed).length;
 });
-
-function applyTheme(value: Theme) {
-  document.documentElement.dataset.theme = value;
-}
-
-function toggleTheme() {
-  theme.value = theme.value === "light" ? "dark" : "light";
-}
 
 function isTodo(value: unknown): value is Todo {
   return (
@@ -100,23 +91,7 @@ function clearCompletedTodos() {
 }
 
 onMounted(() => {
-  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  theme.value =
-    savedTheme === "light" || savedTheme === "dark"
-      ? savedTheme
-      : prefersDark
-        ? "dark"
-        : "light";
-
-  applyTheme(theme.value);
   loadStoredTodos();
-});
-
-watch(theme, (value) => {
-  applyTheme(value);
-  localStorage.setItem(THEME_STORAGE_KEY, value);
 });
 
 watch(
