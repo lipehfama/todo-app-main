@@ -4,48 +4,48 @@ import Header from "./components/Header/Header.vue";
 import TodoInput from "./components/TodoInput/TodoInput.vue";
 import TodoList from "./components/TodoList/TodoList.vue";
 import Footer from "./components/Footer/Footer.vue";
-
-type Todo = {
-  id: number;
-  title: string;
-  completed: boolean;
-};
+import type { Todo } from "./types/todo";
 
 type Theme = "light" | "dark";
 
+const THEME_STORAGE_KEY = "todo-theme";
+const TODOS_STORAGE_KEY = "todo-items";
+
 const theme = ref<Theme>("light");
-const todos = ref<Todo[]>([
+const defaultTodos: Todo[] = [
   {
-    id: 1,
+    id: "todo-1",
     title: "Complete online JavaScript course",
     completed: true,
   },
   {
-    id: 2,
+    id: "todo-2",
     title: "Jog around the park 3x",
     completed: false,
   },
   {
-    id: 3,
+    id: "todo-3",
     title: "10 minutes meditation",
     completed: false,
   },
   {
-    id: 4,
+    id: "todo-4",
     title: "Read for 1 hour",
     completed: false,
   },
   {
-    id: 5,
+    id: "todo-5",
     title: "Pick up groceries",
     completed: false,
   },
   {
-    id: 6,
+    id: "todo-6",
     title: "Complete Todo App on Frontend Mentor",
     completed: false,
   },
-]);
+];
+
+const todos = ref<Todo[]>(defaultTodos);
 
 function applyTheme(value: Theme) {
   document.documentElement.dataset.theme = value;
@@ -55,16 +55,47 @@ function toggleTheme() {
   theme.value = theme.value === "light" ? "dark" : "light";
 }
 
+function isTodo(value: unknown): value is Todo {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "id" in value &&
+    "title" in value &&
+    "completed" in value &&
+    typeof value.id === "string" &&
+    typeof value.title === "string" &&
+    typeof value.completed === "boolean"
+  );
+}
+
+function loadStoredTodos() {
+  const savedTodos = localStorage.getItem(TODOS_STORAGE_KEY);
+
+  if (!savedTodos) return;
+
+  try {
+    const parsedTodos: unknown = JSON.parse(savedTodos);
+
+    if (Array.isArray(parsedTodos) && parsedTodos.every(isTodo)) {
+      todos.value = parsedTodos;
+    }
+  } catch {
+    localStorage.removeItem(TODOS_STORAGE_KEY);
+  }
+}
+
 function createTodo(title: string) {
-  todos.value.unshift({
-    id: Date.now(),
+  const todo: Todo = {
+    id: crypto.randomUUID(),
     title,
     completed: false,
-  });
+  };
+
+  todos.value.unshift(todo);
 }
 
 onMounted(() => {
-  const savedTheme = localStorage.getItem("todo-theme");
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   theme.value =
@@ -75,12 +106,21 @@ onMounted(() => {
         : "light";
 
   applyTheme(theme.value);
+  loadStoredTodos();
 });
 
 watch(theme, (value) => {
   applyTheme(value);
-  localStorage.setItem("todo-theme", value);
+  localStorage.setItem(THEME_STORAGE_KEY, value);
 });
+
+watch(
+  todos,
+  (value) => {
+    localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(value));
+  },
+  { deep: true },
+);
 </script>
 
 <template>

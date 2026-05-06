@@ -1,9 +1,5 @@
 <script setup lang="ts">
-type Todo = {
-  id: number;
-  title: string;
-  completed: boolean;
-};
+import type { Todo } from "../../types/todo";
 
 defineProps<{
   todos: Todo[];
