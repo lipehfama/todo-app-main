@@ -8,16 +8,24 @@
     <td>Mobile Dark</td>
   </tr>
   <tr valign="top">
-    <td><img height="630" src="https://github.com/user-attachments/assets/mobile-light-screenshot" alt="Todo app mobile light theme" /></td>
-    <td><img height="630" src="https://github.com/user-attachments/assets/mobile-dark-screenshot" alt="Todo app mobile dark theme" /></td>
+    <td><img height="630" src="./screenshots/mobile-design-light.jpg" alt="Todo app mobile light theme" /></td>
+    <td><img height="630" src="./screenshots/mobile-design-dark.jpg" alt="Todo app mobile dark theme" /></td>
   </tr>
   <tr>
     <td>Desktop Light</td>
     <td>Desktop Dark</td>
   </tr>
   <tr valign="top">
-    <td><img height="430" src="https://github.com/user-attachments/assets/desktop-light-screenshot" alt="Todo app desktop light theme" /></td>
-    <td><img height="430" src="https://github.com/user-attachments/assets/desktop-dark-screenshot" alt="Todo app desktop dark theme" /></td>
+    <td><img height="430" src="./screenshots/desktop-design-light.jpg" alt="Todo app desktop light theme" /></td>
+    <td><img height="430" src="./screenshots/desktop-design-dark.jpg" alt="Todo app desktop dark theme" /></td>
+  </tr>
+  <tr>
+    <td>Active States Light</td>
+    <td>Active States Dark</td>
+  </tr>
+  <tr valign="top">
+    <td><img height="430" src="./screenshots/active-states-light.jpg" alt="Todo app active states in light theme" /></td>
+    <td><img height="430" src="./screenshots/active-states-dark.jpg" alt="Todo app active states in dark theme" /></td>
   </tr>
 </table>
 
