@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import Header from "./components/Header/Header.vue";
 import TodoInput from "./components/TodoInput/TodoInput.vue";
 import TodoList from "./components/TodoList/TodoList.vue";
@@ -7,11 +7,13 @@ import Footer from "./components/Footer/Footer.vue";
 import type { Todo } from "./types/todo";
 
 type Theme = "light" | "dark";
+type TodoFilter = "all" | "active" | "completed";
 
 const THEME_STORAGE_KEY = "todo-theme";
 const TODOS_STORAGE_KEY = "todo-items";
 
 const theme = ref<Theme>("light");
+const todoFilter = ref<TodoFilter>("all");
 const defaultTodos: Todo[] = [
   {
     id: "todo-1",
@@ -46,6 +48,22 @@ const defaultTodos: Todo[] = [
 ];
 
 const todos = ref<Todo[]>(defaultTodos);
+
+const filteredTodos = computed(() => {
+  if (todoFilter.value === "active") {
+    return todos.value.filter((todo) => !todo.completed);
+  }
+
+  if (todoFilter.value === "completed") {
+    return todos.value.filter((todo) => todo.completed);
+  }
+
+  return todos.value;
+});
+
+const activeTodoCount = computed(() => {
+  return todos.value.filter((todo) => !todo.completed).length;
+});
 
 function applyTheme(value: Theme) {
   document.documentElement.dataset.theme = value;
@@ -106,6 +124,10 @@ function toggleTodo(id: Todo["id"]) {
   todo.completed = !todo.completed;
 }
 
+function changeTodoFilter(filter: TodoFilter) {
+  todoFilter.value = filter;
+}
+
 onMounted(() => {
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -141,7 +163,14 @@ watch(
 
     <section class="app__content" aria-label="Todo app">
       <TodoInput @create="createTodo" />
-      <TodoList :todos="todos" @delete="deleteTodo" @toggle="toggleTodo" />
+      <TodoList
+        :todos="filteredTodos"
+        :active-count="activeTodoCount"
+        :filter="todoFilter"
+        @delete="deleteTodo"
+        @toggle="toggleTodo"
+        @change-filter="changeTodoFilter"
+      />
       <Footer />
     </section>
   </main>

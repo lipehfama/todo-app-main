@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import type { Todo } from "../../types/todo";
+
+type TodoFilter = "all" | "active" | "completed";
 
 const props = defineProps<{
   todos: Todo[];
+  activeCount: number;
+  filter: TodoFilter;
 }>();
 
 const emit = defineEmits<{
   delete: [id: Todo["id"]];
   toggle: [id: Todo["id"]];
+  changeFilter: [filter: TodoFilter];
 }>();
-
-const activeTodoCount = computed(() => {
-  return props.todos.filter((todo) => !todo.completed).length;
-});
 </script>
 
 <template>
@@ -52,14 +52,33 @@ const activeTodoCount = computed(() => {
     </ul>
 
     <footer class="todo-list__actions">
-      <span>{{ activeTodoCount }} items left</span>
+      <span>{{ props.activeCount }} items left</span>
 
       <nav class="todo-list__filters" aria-label="Todo filters">
-        <button class="todo-list__filter todo-list__filter--active" type="button">
+        <button
+          class="todo-list__filter"
+          :class="{ 'todo-list__filter--active': props.filter === 'all' }"
+          type="button"
+          @click="emit('changeFilter', 'all')"
+        >
           All
         </button>
-        <button class="todo-list__filter" type="button">Active</button>
-        <button class="todo-list__filter" type="button">Completed</button>
+        <button
+          class="todo-list__filter"
+          :class="{ 'todo-list__filter--active': props.filter === 'active' }"
+          type="button"
+          @click="emit('changeFilter', 'active')"
+        >
+          Active
+        </button>
+        <button
+          class="todo-list__filter"
+          :class="{ 'todo-list__filter--active': props.filter === 'completed' }"
+          type="button"
+          @click="emit('changeFilter', 'completed')"
+        >
+          Completed
+        </button>
       </nav>
 
       <button class="todo-list__clear" type="button">Clear Completed</button>
