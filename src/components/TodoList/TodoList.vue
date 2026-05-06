@@ -4,6 +4,10 @@ import type { Todo } from "../../types/todo";
 defineProps<{
   todos: Todo[];
 }>();
+
+const emit = defineEmits<{
+  delete: [id: Todo["id"]];
+}>();
 </script>
 
 <template>
@@ -29,7 +33,12 @@ defineProps<{
 
         <span class="todo-list__text">{{ todo.title }}</span>
 
-        <button class="todo-list__remove" type="button" aria-label="Remove todo">
+        <button
+          class="todo-list__remove"
+          type="button"
+          aria-label="Remove todo"
+          @click="emit('delete', todo.id)"
+        >
           <img src="../../assets/images/icons/icon-cross.svg" alt="" />
         </button>
       </li>

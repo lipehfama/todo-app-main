@@ -94,6 +94,10 @@ function createTodo(title: string) {
   todos.value.unshift(todo);
 }
 
+function deleteTodo(id: Todo["id"]) {
+  todos.value = todos.value.filter((todo) => todo.id !== id);
+}
+
 onMounted(() => {
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -129,7 +133,7 @@ watch(
 
     <section class="app__content" aria-label="Todo app">
       <TodoInput @create="createTodo" />
-      <TodoList :todos="todos" />
+      <TodoList :todos="todos" @delete="deleteTodo" />
       <Footer />
     </section>
   </main>
