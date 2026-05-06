@@ -13,6 +13,7 @@ const emit = defineEmits<{
   delete: [id: Todo["id"]];
   toggle: [id: Todo["id"]];
   changeFilter: [filter: TodoFilter];
+  clearCompleted: [];
 }>();
 </script>
 
@@ -81,7 +82,13 @@ const emit = defineEmits<{
         </button>
       </nav>
 
-      <button class="todo-list__clear" type="button">Clear Completed</button>
+      <button
+        class="todo-list__clear"
+        type="button"
+        @click="emit('clearCompleted')"
+      >
+        Clear Completed
+      </button>
     </footer>
   </section>
 </template>

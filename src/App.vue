@@ -95,6 +95,10 @@ function changeTodoFilter(filter: TodoFilter) {
   todoFilter.value = filter;
 }
 
+function clearCompletedTodos() {
+  todos.value = todos.value.filter((todo) => !todo.completed);
+}
+
 onMounted(() => {
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -137,6 +141,7 @@ watch(
         @delete="deleteTodo"
         @toggle="toggleTodo"
         @change-filter="changeTodoFilter"
+        @clear-completed="clearCompletedTodos"
       />
       <Footer />
     </section>
