@@ -25,6 +25,7 @@
   --todo-accent: hsl(220 80% 42%);
   --todo-border: hsl(233 11% 84%);
   --header-background: url("../images/backgrounds/bg-desktop-light.jpg");
+  --header-background-mobile: url("../images/backgrounds/bg-mobile-light.jpg");
 }
 
 :root[data-theme="dark"] {
@@ -35,4 +36,5 @@
   --todo-accent: hsl(220 98% 72%);
   --todo-border: hsl(237 14% 26%);
   --header-background: url("../images/backgrounds/bg-desktop-dark.jpg");
+  --header-background-mobile: url("../images/backgrounds/bg-mobile-dark.jpg");
 }

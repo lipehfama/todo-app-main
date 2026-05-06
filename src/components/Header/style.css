@@ -42,10 +42,6 @@
   }
 
   @media (width < 48rem) {
-    background-image: url("../../assets/images/backgrounds/bg-mobile-light.jpg");
-
-    :global(:root[data-theme="dark"]) & {
-      background-image: url("../../assets/images/backgrounds/bg-mobile-dark.jpg");
-    }
+    background-image: var(--header-background-mobile);
   }
 }

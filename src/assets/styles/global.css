@@ -8,8 +8,14 @@
 html {
   font-size: var(--global-font-size);
   font-family: var(--font-family);
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {
   min-height: 100vh;
+  background-color: var(--page-background);
 }

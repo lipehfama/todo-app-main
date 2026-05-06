@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Header from "./components/Header/Header.vue";
 import TodoInput from "./components/TodoInput/TodoInput.vue";
 import TodoList from "./components/TodoList/TodoList.vue";
@@ -11,6 +11,9 @@ type Todo = {
   completed: boolean;
 };
 
+type Theme = "light" | "dark";
+
+const theme = ref<Theme>("light");
 const todos = ref<Todo[]>([
   {
     id: 1,
@@ -44,6 +47,14 @@ const todos = ref<Todo[]>([
   },
 ]);
 
+function applyTheme(value: Theme) {
+  document.documentElement.dataset.theme = value;
+}
+
+function toggleTheme() {
+  theme.value = theme.value === "light" ? "dark" : "light";
+}
+
 function createTodo(title: string) {
   todos.value.unshift({
     id: Date.now(),
@@ -51,11 +62,30 @@ function createTodo(title: string) {
     completed: false,
   });
 }
+
+onMounted(() => {
+  const savedTheme = localStorage.getItem("todo-theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  theme.value =
+    savedTheme === "light" || savedTheme === "dark"
+      ? savedTheme
+      : prefersDark
+        ? "dark"
+        : "light";
+
+  applyTheme(theme.value);
+});
+
+watch(theme, (value) => {
+  applyTheme(value);
+  localStorage.setItem("todo-theme", value);
+});
 </script>
 
 <template>
   <main class="app">
-    <Header />
+    <Header :theme="theme" @toggle-theme="toggleTheme" />
 
     <section class="app__content" aria-label="Todo app">
       <TodoInput @create="createTodo" />
