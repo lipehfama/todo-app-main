@@ -98,6 +98,14 @@ function deleteTodo(id: Todo["id"]) {
   todos.value = todos.value.filter((todo) => todo.id !== id);
 }
 
+function toggleTodo(id: Todo["id"]) {
+  const todo = todos.value.find((todo) => todo.id === id);
+
+  if (!todo) return;
+
+  todo.completed = !todo.completed;
+}
+
 onMounted(() => {
   const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -133,7 +141,7 @@ watch(
 
     <section class="app__content" aria-label="Todo app">
       <TodoInput @create="createTodo" />
-      <TodoList :todos="todos" @delete="deleteTodo" />
+      <TodoList :todos="todos" @delete="deleteTodo" @toggle="toggleTodo" />
       <Footer />
     </section>
   </main>

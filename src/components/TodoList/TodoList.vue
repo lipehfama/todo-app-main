@@ -1,13 +1,19 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import type { Todo } from "../../types/todo";
 
-defineProps<{
+const props = defineProps<{
   todos: Todo[];
 }>();
 
 const emit = defineEmits<{
   delete: [id: Todo["id"]];
+  toggle: [id: Todo["id"]];
 }>();
+
+const activeTodoCount = computed(() => {
+  return props.todos.filter((todo) => !todo.completed).length;
+});
 </script>
 
 <template>
@@ -23,6 +29,7 @@ const emit = defineEmits<{
           class="todo-list__check"
           type="button"
           :aria-label="todo.completed ? 'Mark todo as active' : 'Mark todo as completed'"
+          @click="emit('toggle', todo.id)"
         >
           <img
             v-if="todo.completed"
@@ -45,7 +52,7 @@ const emit = defineEmits<{
     </ul>
 
     <footer class="todo-list__actions">
-      <span>{{ todos.length }} items left</span>
+      <span>{{ activeTodoCount }} items left</span>
 
       <nav class="todo-list__filters" aria-label="Todo filters">
         <button class="todo-list__filter todo-list__filter--active" type="button">
