@@ -19,3 +19,22 @@ body {
   min-height: 100vh;
   background-color: var(--page-background);
 }
+
+.app {
+  min-block-size: 100vh;
+  background-color: var(--page-background);
+}
+
+.app__content {
+  display: grid;
+  gap: 1.5rem;
+  inline-size: min(100% - 3rem, var(--content-width));
+  margin-block-start: -8.5rem;
+  margin-inline: auto;
+
+  @media (width < 48rem) {
+    gap: 1rem;
+    inline-size: min(100% - 1.5rem, var(--content-width));
+    margin-block-start: -6rem;
+  }
+}

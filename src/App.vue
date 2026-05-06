@@ -14,40 +14,7 @@ const TODOS_STORAGE_KEY = "todo-items";
 
 const theme = ref<Theme>("light");
 const todoFilter = ref<TodoFilter>("all");
-const defaultTodos: Todo[] = [
-  {
-    id: "todo-1",
-    title: "Complete online JavaScript course",
-    completed: true,
-  },
-  {
-    id: "todo-2",
-    title: "Jog around the park 3x",
-    completed: false,
-  },
-  {
-    id: "todo-3",
-    title: "10 minutes meditation",
-    completed: false,
-  },
-  {
-    id: "todo-4",
-    title: "Read for 1 hour",
-    completed: false,
-  },
-  {
-    id: "todo-5",
-    title: "Pick up groceries",
-    completed: false,
-  },
-  {
-    id: "todo-6",
-    title: "Complete Todo App on Frontend Mentor",
-    completed: false,
-  },
-];
-
-const todos = ref<Todo[]>(defaultTodos);
+const todos = ref<Todo[]>([]);
 
 const filteredTodos = computed(() => {
   if (todoFilter.value === "active") {
@@ -175,24 +142,3 @@ watch(
     </section>
   </main>
 </template>
-
-<style scoped>
-.app {
-  min-block-size: 100vh;
-  background-color: var(--page-background);
-}
-
-.app__content {
-  display: grid;
-  gap: 1.5rem;
-  inline-size: min(100% - 3rem, var(--content-width));
-  margin-block-start: -8.5rem;
-  margin-inline: auto;
-
-  @media (width < 48rem) {
-    gap: 1rem;
-    inline-size: min(100% - 1.5rem, var(--content-width));
-    margin-block-start: -6rem;
-  }
-}
-</style>
